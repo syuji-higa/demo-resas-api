@@ -37,6 +37,7 @@
     "internal-ip": "^6.1.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
+    "query-string": "^6.13.1",
     "typescript": "^3.9.7"
   }
 }

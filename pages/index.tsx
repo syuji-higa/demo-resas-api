@@ -1,8 +1,16 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import Prefectures from '../components/Prefectures'
+import Population from '../components/Population'
 import styles from '../styles/Home.module.css'
 
 export default function Home(): JSX.Element {
+  const [prefCode, setPrefCode] = useState(1)
+
+  const changePreCode = (code: number) => {
+    setPrefCode(code)
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,7 +19,8 @@ export default function Home(): JSX.Element {
       </Head>
 
       <main className={styles.main}>
-        <Prefectures />
+        <Prefectures prefCode={prefCode} changePreCode={changePreCode} />
+        <Population prefCode={prefCode} />
       </main>
     </div>
   )
