@@ -10,6 +10,8 @@ type Props = {
   prefCodeList: number[]
 }
 
+// NOTE: API の型はまともに記載がないので結構適当
+
 type PopulationRequest = {
   prefCode: number
   cityCode: string
@@ -44,6 +46,7 @@ async function fetchPopulation(prefCode): Promise<PopulationData[]> {
     cityCode: '-',
   }
   const query = stringify(req)
+  // NOTE: SWR のキャッシュ戦略を使いたかったが無理めなのであきらめ
   const data = await fetcher<PopulationResponse>(
     `https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?${query}`
   )
@@ -68,6 +71,8 @@ export default function Population({
   prefecturesList,
   prefCodeList,
 }: Props): JSX.Element {
+  // NOTE: 少しデータやループが多めだけど責務を考えたデータ中心設計でいきたい
+
   const [populationList, setPopulationList] = useState<PopulationItem[]>([])
 
   useEffect(() => {
@@ -80,6 +85,7 @@ export default function Population({
       ;(async () => {
         const data = await fetchPopulation(prefCode)
         if (!data) {
+          // NOTE: エラーはとりあえずアラート
           alert('failed to load.')
           return
         }

@@ -23,6 +23,9 @@ export default function Home(): JSX.Element {
     setPrefCodeList(prefCodeList)
   }
 
+  // NOTE:
+  // エンドポイントをまとめるの忘れてたけけど
+  // 2 箇所なのでとりあえずそのまま
   const prefecturesSWR = useSWR<PrefecturesResponse>(
     `https://opendata.resas-portal.go.jp/api/v1/prefectures`,
     fetcher
@@ -37,6 +40,7 @@ export default function Home(): JSX.Element {
 
       <main className={styles.main}>
         <div className={styles.prefectures}>
+          {/* SWR のレスポンスをそのまま渡すのは悩んだが、とりあえずまいっか */}
           <Prefectures
             prefecturesSWR={prefecturesSWR}
             prefCodeList={prefCodeList}

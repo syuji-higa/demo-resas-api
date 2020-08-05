@@ -26,6 +26,10 @@ export default function Prefectures({
   const { data, error } = prefecturesSWR
 
   if (!error && !data) return <div>loading...</div>
+  // NOTE:
+  // まともなエラーが返ればポーリングするんだけど
+  // 軽く試してけっこう面倒そうなので未対応
+  // リフェッチの方法はよくわからなかった
   if (error || !data.result) return <div>failed to load.</div>
   return (
     <ul className={styles.list}>
