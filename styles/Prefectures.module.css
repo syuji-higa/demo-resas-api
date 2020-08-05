@@ -1,0 +1,20 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  width: 110px;
+}
+
+.label {
+  display: block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.checkbox {
+  cursor: pointer;
+}

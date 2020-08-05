@@ -1,5 +1,6 @@
 import { responseInterface } from 'swr'
 import { PrefecturesResponse } from '../pages/index'
+import styles from '../styles/Prefectures.module.css'
 
 type Props = {
   prefecturesSWR: responseInterface<PrefecturesResponse, any>
@@ -27,15 +28,17 @@ export default function Prefectures({
   if (!error && !data) return <div>loading...</div>
   if (error || !data.result) return <div>failed to load.</div>
   return (
-    <ul>
+    <ul className={styles.list}>
       {data.result.map(({ prefCode, prefName }) => {
         return (
-          <li key={prefCode}>
-            <label>
+          <li key={prefCode} className={styles.listItem}>
+            <label className={styles.label}>
               <input
                 type="checkbox"
                 value={prefCode}
                 onChange={(e) => onChange(prefCode, e.target.checked)}
+                checked={prefCodeList.includes(prefCode)}
+                className={styles.checkbox}
               />
               {prefName}
             </label>

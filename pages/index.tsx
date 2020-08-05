@@ -36,15 +36,19 @@ export default function Home(): JSX.Element {
       </Head>
 
       <main className={styles.main}>
-        <Prefectures
-          prefecturesSWR={prefecturesSWR}
-          prefCodeList={prefCodeList}
-          updatePreCodeList={updatePreCodeList}
-        />
-        <Population
-          prefecturesList={prefecturesSWR.data?.result}
-          prefCodeList={prefCodeList}
-        />
+        <div className={styles.prefectures}>
+          <Prefectures
+            prefecturesSWR={prefecturesSWR}
+            prefCodeList={prefCodeList}
+            updatePreCodeList={updatePreCodeList}
+          />
+        </div>
+        <div className={styles.population}>
+          <Population
+            prefecturesList={prefecturesSWR.data?.result}
+            prefCodeList={prefCodeList}
+          />
+        </div>
       </main>
     </div>
   )
