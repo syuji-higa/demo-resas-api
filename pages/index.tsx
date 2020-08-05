@@ -1,15 +1,32 @@
 import { useState } from 'react'
+import useSWR from 'swr'
+import { fetcher } from '../utils/fetcher'
 import Head from 'next/head'
 import Prefectures from '../components/Prefectures'
 import Population from '../components/Population'
 import styles from '../styles/Home.module.css'
 
-export default function Home(): JSX.Element {
-  const [prefCode, setPrefCode] = useState(1)
+export type PrefecturesItem = {
+  prefCode: number
+  prefName: string
+}
 
-  const changePreCode = (code: number) => {
-    setPrefCode(code)
+export type PrefecturesResponse = {
+  message: string
+  result: PrefecturesItem[]
+}
+
+export default function Home(): JSX.Element {
+  const [prefCodeList, setPrefCodeList] = useState([13]) // 初期値：東京
+
+  const updatePreCodeList = (prefCodeList: number[]) => {
+    setPrefCodeList(prefCodeList)
   }
+
+  const prefecturesSWR = useSWR<PrefecturesResponse>(
+    `https://opendata.resas-portal.go.jp/api/v1/prefectures`,
+    fetcher
+  )
 
   return (
     <div className={styles.container}>
@@ -19,8 +36,15 @@ export default function Home(): JSX.Element {
       </Head>
 
       <main className={styles.main}>
-        <Prefectures prefCode={prefCode} changePreCode={changePreCode} />
-        <Population prefCode={prefCode} />
+        <Prefectures
+          prefecturesSWR={prefecturesSWR}
+          prefCodeList={prefCodeList}
+          updatePreCodeList={updatePreCodeList}
+        />
+        <Population
+          prefecturesList={prefecturesSWR.data?.result}
+          prefCodeList={prefCodeList}
+        />
       </main>
     </div>
   )

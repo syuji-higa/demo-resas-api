@@ -1,19 +1,28 @@
-import useSWR from 'swr'
-import { fetcher } from '../utils/fetcher'
+import { responseInterface } from 'swr'
+import { PrefecturesResponse } from '../pages/index'
 
 type Props = {
-  prefCode: number
-  changePreCode(code: number): void
+  prefecturesSWR: responseInterface<PrefecturesResponse, any>
+  prefCodeList: number[]
+  updatePreCodeList(code: number[]): void
 }
 
 export default function Prefectures({
-  prefCode: currentPrefCode,
-  changePreCode,
+  prefecturesSWR,
+  prefCodeList,
+  updatePreCodeList,
 }: Props): JSX.Element {
-  const { data, error } = useSWR(
-    `https://opendata.resas-portal.go.jp/api/v1/prefectures`,
-    fetcher
-  )
+  const onChange = (code: number, checked: boolean) => {
+    const codeSet = new Set(prefCodeList)
+    if (checked) {
+      codeSet.add(code)
+    } else {
+      codeSet.delete(code)
+    }
+    updatePreCodeList(Array.from(codeSet))
+  }
+
+  const { data, error } = prefecturesSWR
 
   if (!error && !data) return <div>loading...</div>
   if (error || !data.result) return <div>failed to load.</div>
@@ -25,10 +34,9 @@ export default function Prefectures({
             <label>
               <input
                 type="checkbox"
-                value="prefCode"
-                checked={currentPrefCode === prefCode}
-                onChange={() => changePreCode(prefCode)}
-              />{' '}
+                value={prefCode}
+                onChange={(e) => onChange(prefCode, e.target.checked)}
+              />
               {prefName}
             </label>
           </li>
