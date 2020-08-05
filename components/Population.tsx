@@ -116,7 +116,7 @@ export default function Population({
       },
     },
     series: populationShownList.map(({ prefCode, data }) => {
-      const name = prefecturesList.find((pref) => pref.prefCode === prefCode)
+      const name = prefecturesList?.find((pref) => pref.prefCode === prefCode)
         .prefName
       return {
         type: 'line',
