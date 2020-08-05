@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Prefectures from '../components/Prefectures'
 import styles from '../styles/Home.module.css'
 
 export default function Home(): JSX.Element {
@@ -9,7 +10,9 @@ export default function Home(): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}></main>
+      <main className={styles.main}>
+        <Prefectures />
+      </main>
     </div>
   )
 }
