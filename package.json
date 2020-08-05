@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "api-proxy-server": "nodemon api-proxy-server.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
